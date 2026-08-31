@@ -1,0 +1,9 @@
+[project]
+name = "medialist"
+version = "0.1.0"
+requires-python = ">=3.13"
+dependencies = [
+    "pymediainfo>=7.0.1",
+    "tkinterdnd2>=0.6.2",
+    "ttkwidgets>=0.13.0",
+]
