@@ -4,6 +4,7 @@ from tkinter import ttk
 from tkinterdnd2 import DND_FILES, TkinterDnD
 from pathlib import Path
 from pymediainfo import MediaInfo
+import re
 
 def convert_time(seconds):
     seconds = int(seconds)
@@ -29,16 +30,18 @@ def on_tree_select(event):
     item_count = len(widget.selection())
     label.config(text=f"{item_count} items: {convert_time(total_seconds)}")
 
+def sort_key(s):
+    return [int(c) if c.isdigit() else c.lower() for c in re.split(r'(\d+)', s)]
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     root = TkinterDnD.Tk()
-    root.geometry("1024x768")
+    root.geometry("800x768")
     root.title("Runtime calculator")
 
     columns = ('file', 'length', 'secs')
     tree = ttk.Treeview(root, columns=columns, show='headings')
-    tree.column('file', width=900, stretch=True)
+    tree.column('file', width=700, stretch=True)
     tree.column('length', stretch=True)
     tree.column('secs', width=0, stretch=False)
     tree.heading('file', text='File', anchor="w")
@@ -46,7 +49,8 @@ if __name__ == '__main__':
 
     files = set()
     def on_drop(event):
-        for path in root.tk.splitlist(event.data):
+        new_files = sorted(root.tk.splitlist(event.data), key=sort_key)
+        for path in new_files:
             if path in files: continue
             p = Path(path)
             media_info = MediaInfo.parse(p)
