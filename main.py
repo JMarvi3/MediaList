@@ -55,7 +55,7 @@ if __name__ == '__main__':
             p = Path(path)
             media_info = MediaInfo.parse(p)
             if len(media_info.video_tracks) > 0:
-                secs = media_info.video_tracks[0].duration // 1000
+                secs = int(float(media_info.video_tracks[0].duration) / 1000)
                 duration = convert_time(secs)
             else:
                 duration = ""
