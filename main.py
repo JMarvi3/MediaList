@@ -36,6 +36,10 @@ def sort_key(s):
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     root = TkinterDnD.Tk()
+    # Icon from https://www.flaticon.com/authors/magnific
+    # <a href="https://www.flaticon.com/free-icons/calculator" title="calculator icons">Calculator icons created by Magnific - Flaticon</a>
+    app_icon = tk.PhotoImage(file='icon_blue.png')
+    root.iconphoto(True, app_icon)
     root.geometry("800x768")
     root.title("Runtime calculator")
 
